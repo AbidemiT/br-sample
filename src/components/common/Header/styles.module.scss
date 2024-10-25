@@ -1,0 +1,41 @@
+.header {
+    @apply fixed w-full text-dark-700 px-12 py-12 md:py-32 shadow-xs z-20;
+}
+
+.logo-container {
+    @apply flex items-center w-124 h-32;
+    transform: scale(1);
+
+    &:hover {
+        transform: scale(1.02);
+    }
+}
+
+.wrapper {
+    @apply container mx-auto flex justify-between items-center rounded-lg bg-[#12121280] border border-[#FFFFFF0F] backdrop-blur-lg pl-16 pr-8 py-8;
+    ;
+}
+
+.header-menu {
+    @apply w-full pl-0 flex flex-col lg:flex-row items-center sm:space-x-4 lg:space-x-16 xl:space-x-48;
+}
+
+.show-menu {
+    @apply bg-[#121212] absolute top-64 left-0 w-full p-20 flex lg:hidden z-10;
+}
+
+.a {
+    @apply px-16 py-12 rounded text-[#FFFFFFCC] bg-dark-700 text-sm border-none cursor-pointer min-w-96 font-bold flex items-center gap-12;
+}
+
+.toggle-menu-btn {
+    @apply lg:hidden h-24 w-24 flex justify-center items-center border-none bg-transparent p-0;
+}
+
+.auth-menu {
+    @apply w-full pl-0 flex flex-col lg:flex-row items-center lg:space-x-20;
+}
+
+.list {
+    @apply text-center my-4;
+  }

@@ -1,0 +1,7 @@
+.list {
+  @apply text-center my-4;
+}
+
+.link {
+  @apply font-medium w-full cursor-pointer text-[#FFFFFFCC] hover:text-bc-green-400 text-sm block p-12 lg:p-0 transition-colors duration-100 ease-in;
+}
