@@ -40,8 +40,8 @@ const Radar = () => {
     const drawRadarSweep = () => {
       ctx.save();
       ctx.beginPath();
-      ctx.moveTo(1200, 400);
-      ctx.arc(1200, 400, 400, angle, angle + Math.PI / 3);
+      ctx.moveTo(1300, 400);
+      ctx.arc(1300, 400, 400, angle, angle + Math.PI / 3);
       ctx.closePath();
       ctx.clip();
 
