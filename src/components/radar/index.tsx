@@ -5,79 +5,74 @@ const Radar = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (canvas) {
-      // Ensure canvas dimensions are set
-      if (!canvas.width) canvas.width = 1000;
-      if (!canvas.height) canvas.height = 1000;
+    if (!canvas) return;
 
-      const ctx = canvas.getContext("2d");
-    if (ctx) {
-      let angle = 0;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = 2600 * dpr;
+    canvas.height = 1200 * dpr;
+    canvas.style.width = "2600px";
+    canvas.style.height = "1200px";
 
-      const draw = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-        // Draw grid background
-        const gridSize = 30; // Smaller grid size for tiny lines
-        ctx.strokeStyle = '#FFFFFF33';
-        ctx.lineWidth = 0.02;
-        for (let x = 0; x <= canvas.width; x += gridSize) {
-          ctx.beginPath();
-          ctx.moveTo(x, 0);
-          ctx.lineTo(x, canvas.height);
-          ctx.stroke();
-        }
-        for (let y = 0; y <= canvas.height; y += gridSize) {
-          ctx.beginPath();
-          ctx.moveTo(0, y);
-          ctx.lineTo(canvas.width, y);
-          ctx.stroke();
-        }
+    ctx.scale(dpr, dpr);
+    let angle = 0;
+    const gridSize = 40;
 
-        // Draw radar sweep
-        ctx.save();
+    const drawGrid = () => {
+      ctx.strokeStyle = '#FFFFFF33';
+      ctx.lineWidth = 0.01;
+      for (let x = 0; x <= canvas.width / dpr; x += gridSize) {
         ctx.beginPath();
-        ctx.moveTo(600, 200);
-        ctx.arc(600, 200, 200, angle, angle + Math.PI / 4); // Sweep angle
-        ctx.closePath();
-        ctx.clip();
-        
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height / dpr);
+        ctx.stroke();
+      }
+      for (let y = 0; y <= canvas.height / dpr; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width / dpr, y);
+        ctx.stroke();
+      }
+    };
 
-        // Illuminate grid background lines only in the radar sweep area
-        const gradient = ctx.createRadialGradient(600, 200, 0, 600, 200, 200);
-        gradient.addColorStop(0.9, "rgba(112, 255, 0, 0.1)");
-        // gradient.addColorStop(0.75, "rgba(112, 255, 0, 0.2)");
-        // gradient.addColorStop(0, "rgba(112, 255, 0, 0.3)");
-        // gradient.addColorStop(0.75, "rgba(0, 0, 0, 0.3)");
-        // gradient.addColorStop(0.90, "rgba(0, 0, 0, 0.3)");
-        ctx.strokeStyle =gradient;
-        // ctx.strokeStyle = "rgba(112, 255, 0, 0.1)";
-        ctx.lineWidth = 1;
-        for (let x = 0; x <= canvas.width; x += gridSize) {
-          ctx.beginPath();
-          ctx.moveTo(x, 0);
-          ctx.lineTo(x, canvas.height);
-          ctx.stroke();
-        }
-        for (let y = 0; y <= canvas.height; y += gridSize) {
-          ctx.beginPath();
-          ctx.moveTo(0, y);
-          ctx.lineTo(canvas.width, y);
-          ctx.stroke();
-        }
-        ctx.restore();
-        ctx.globalCompositeOperation = "lighter";
+    const drawRadarSweep = () => {
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(1200, 400);
+      ctx.arc(1200, 400, 400, angle, angle + Math.PI / 3);
+      ctx.closePath();
+      ctx.clip();
 
-        angle += 0.01;
-        if (angle >= Math.PI * 2) {
-          angle = 0;
-        }
-        requestAnimationFrame(draw);
-      };
+      const gradient = ctx.createRadialGradient(1200, 400, 0, 1200, 400, 400);
+      gradient.addColorStop(0.9, "rgba(112, 255, 0, 0.1)");
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 1;
+      for (let x = 0; x <= canvas.width / dpr; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height / dpr);
+        ctx.stroke();
+      }
+      for (let y = 0; y <= canvas.height / dpr; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width / dpr, y);
+        ctx.stroke();
+      }
+      ctx.restore();
+    };
 
-      draw();
-    }
-    }
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawGrid();
+      drawRadarSweep();
+      angle = (angle + 0.01) % (Math.PI * 2);
+      requestAnimationFrame(draw);
+    };
+
+    draw();
   }, []);
 
   return (
