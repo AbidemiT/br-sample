@@ -78,7 +78,7 @@ const Radar = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute top-96 w-full object-contain"
+      className="hidden md:block absolute top-96 w-full object-contain"
       width={1300}
       height={600}
     ></canvas>
