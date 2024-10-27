@@ -1,10 +1,18 @@
 "use client";
 import ArrowRight from "@/assets/icons/ArrowRignt";
+import styles from "./styles.module.scss";
+import { FC } from "react";
 import Radar from "../radar";
 
-const Hero = () => {
+interface HeroProps {
+  canvasImplementation: boolean;
+}
+
+const Hero: FC<HeroProps> = ({ canvasImplementation }) => {
   return (
-    <section className="h-[600px] flex justify-center items-center">
+    <section
+      className={`h-[600px] flex justify-center items-center ${styles.section}`}
+    >
       <div className="flex flex-col items-center justify-center gap-64">
         <div className="flex flex-col items-center justify-center text-center text-white max-w-[851px] gap-12">
           <h1 className="text-6xl font-extrabold">
@@ -23,12 +31,20 @@ const Hero = () => {
           <button className="flex items-center gap-12 text-sm border border-[#FFFFFF33] py-8 px-12 rounded-md text-white bg-transparent">
             <p>Explore our API docs</p>
             <div className="h-10.5 w-10.5 rotate-0">
-                <ArrowRight color="stroke-[#FFFFFF33]"/>
-            </div> 
+              <ArrowRight color="stroke-[#FFFFFF33]" />
+            </div>
           </button>
         </div>
-        <Radar /> 
+        {canvasImplementation && <Radar />}
       </div>
+      {!canvasImplementation && (
+        <>
+          <div
+            className={`absolute top-96 inset-0 w-full h-[800px] ${styles.checkerBackground}`}
+          ></div>
+          <div className={`${styles.beamer}`}></div>
+        </>
+      )}
     </section>
   );
 };

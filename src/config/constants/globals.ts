@@ -13,7 +13,7 @@ export const menuLinks = [
     title: 'Security Overviews', slur: 'security-overviews'
   },
   {
-    title: 'Developers', slur: 'developers'
+    title: 'css', slur: 'css'
   },
   {
     title: 'Resources', slur: 'resources'

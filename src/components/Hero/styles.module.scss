@@ -1,0 +1,36 @@
+.checkerBackground {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.058) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.058) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.2;
+}
+
+.beamer {
+    display: block;
+    width: 1000px;
+    height: 1000px;
+    border-radius: 50%;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    animation: clockwise 30s linear infinite;
+    background: conic-gradient(
+        from 180deg at 50% 50%,
+        rgb(112 255 0) -9deg,
+        #000 90deg,
+        rgb(0 0 0) 360deg,
+        rgb(112, 255, 0) 0deg
+    );
+    mix-blend-mode: color-dodge;
+    filter: drop-shadow(2px 4px 6px black);
+}
+
+@keyframes clockwise {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
